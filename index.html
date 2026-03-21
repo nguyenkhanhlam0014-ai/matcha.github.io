@@ -191,38 +191,44 @@ nav.scrolled .cart-icon-wrapper,
         /* ----------------------------------------------------------------
         4. HERO SECTION
         ----------------------------------------------------------------
-        */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                        url('https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&w=1950&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: var(--white);
-        }
+       /* --- HERO SECTION --- */
+.hero {
+    height: 100vh;
+    /* Sử dụng hình ảnh từ Unsplash của bạn */
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                url('https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&w=1950&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Hiệu ứng đẹp trên Laptop */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--white);
+    padding: 0 20px; /* Thêm padding để chữ không chạm mép màn hình mobile */
+}
 
-        .hero-content h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3rem, 8vw, 6rem);
-            line-height: 1.1;
-            margin-bottom: 20px;
-            font-weight: 900;
-            font-style: italic;
-        }
+/* --- ĐIỀU CHỈNH RIÊNG CHO ĐIỆN THOẠI (Mobile Fix) --- */
+@media (max-width: 768px) {
+    .hero {
+        /* QUAN TRỌNG: Chuyển về scroll vì mobile không hỗ trợ fixed background tốt */
+        background-attachment: scroll !important; 
+        height: 70vh; /* Giảm chiều cao xuống một chút cho đỡ choán chỗ mobile */
+    }
 
-        .hero-content p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 40px;
-            font-weight: 300;
-            letter-spacing: 1px;
-        }
+    .hero-content h1 {
+        /* Clamp đã lo phần size, nhưng mình có thể chỉnh lại line-height */
+        line-height: 1.2;
+        margin-bottom: 15px;
+    }
 
+    .hero-content p {
+        font-size: 1rem; /* Giảm size chữ mô tả trên mobile */
+        margin-bottom: 25px;
+        line-height: 1.5;
+        padding: 0 10px;
+    }
+}
         /* ----------------------------------------------------------------
         5. PRODUCT CATALOG (EXTENDED)
         ----------------------------------------------------------------
