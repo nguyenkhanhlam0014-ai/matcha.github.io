@@ -108,127 +108,127 @@
         3. NAVIGATION
         ----------------------------------------------------------------
         */
-        /* --- NAVIGATION CHUNG --- */
-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 20px 0; /* Giảm padding một chút cho cân đối */
-    background: transparent;
-    z-index: 1000;
-    transition: all 0.3s ease;
-}
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 0;
+            background: transparent;
+            z-index: 1000;
+            transition: var(--transition);
+        }
 
-/* Khi cuộn chuột hoặc trên thiết bị nhỏ, nên có nền để thấy rõ chữ */
-nav.scrolled, 
-body.mobile-view nav { 
-    padding: 12px 0;
-    background: rgba(255, 255, 255, 0.98);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
+        nav.scrolled {
+            padding: 15px 0;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-sm);
+        }
 
-.nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 5%;
-    max-width: 1400px;
-    margin: 0 auto;
-}
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+        }
 
-/* --- LOGO --- */
-.logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem; /* Giảm size một chút cho mobile */
-    font-weight: 900;
-    color: var(--white); /* Mặc định màu trắng trên nền ảnh */
-    text-decoration: none;
-}
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
 
-nav.scrolled .logo { color: var(--primary-teal, #2d6a4f); }
+        nav.scrolled .logo {
+            color: var(--primary);
+        }
 
-/* --- GIỎ HÀNG (QUAN TRỌNG) --- */
-.cart-icon-wrapper {
-    position: relative;
-    cursor: pointer;
-    color: var(--white);
-    font-size: 1.4rem;
-    display: flex;
-    align-items: center;
-}
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
 
-/* Fix lỗi mất giỏ hàng trên mobile bằng cách đổi màu đen khi nền trắng */
-nav.scrolled .cart-icon-wrapper,
-@media (max-width: 768px) {
-    nav .logo, nav .cart-icon-wrapper {
-        color: #333 !important; /* Buộc hiện màu tối trên mobile */
-    }
-}
+        .nav-links a {
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
 
-/* --- RESPONSIVE CHO ĐIỆN THOẠI --- */
-@media (max-width: 768px) {
-    nav {
-        background: white; /* Mobile luôn để nền trắng cho dễ nhìn */
-        padding: 10px 0;
-    }
+        nav.scrolled .nav-links a {
+            color: var(--text-main);
+        }
 
-    .nav-links {
-        display: none; /* Ẩn menu chữ trên mobile để đỡ chật */
-    }
+        .nav-links a:hover {
+            color: var(--matcha-light) !important;
+        }
 
-    .logo {
-        font-size: 1.2rem;
-    }
+        .cart-icon-wrapper {
+            position: relative;
+            cursor: pointer;
+            color: var(--white);
+            font-size: 1.2rem;
+        }
 
-    /* Đảm bảo ảnh Hero/Trang chủ không bị mất */
-    .hero, .home-banner {
-        height: 50vh !important; /* Giảm chiều cao trên mobile */
-        background-attachment: scroll !important; /* Fix lỗi background-fixed trên iPhone */
-    }
-}
+        nav.scrolled .cart-icon-wrapper {
+            color: var(--text-main);
+        }
+
+        #cart-count-badge {
+            position: absolute;
+            top: -10px;
+            right: -15px;
+            background: #d63031;
+            color: white;
+            font-size: 0.65rem;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
 
         /* ----------------------------------------------------------------
         4. HERO SECTION
         ----------------------------------------------------------------
-       /* --- HERO SECTION --- */
-.hero {
-    height: 100vh;
-    /* Sử dụng hình ảnh từ Unsplash của bạn */
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                url('https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&w=1950&q=80');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* Hiệu ứng đẹp trên Laptop */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: var(--white);
-    padding: 0 20px; /* Thêm padding để chữ không chạm mép màn hình mobile */
-}
+        */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+        }
 
-/* --- ĐIỀU CHỈNH RIÊNG CHO ĐIỆN THOẠI (Mobile Fix) --- */
-@media (max-width: 768px) {
-    .hero {
-        /* QUAN TRỌNG: Chuyển về scroll vì mobile không hỗ trợ fixed background tốt */
-        background-attachment: scroll !important; 
-        height: 70vh; /* Giảm chiều cao xuống một chút cho đỡ choán chỗ mobile */
-    }
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1.1;
+            margin-bottom: 20px;
+            font-weight: 900;
+            font-style: italic;
+        }
 
-    .hero-content h1 {
-        /* Clamp đã lo phần size, nhưng mình có thể chỉnh lại line-height */
-        line-height: 1.2;
-        margin-bottom: 15px;
-    }
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
 
-    .hero-content p {
-        font-size: 1rem; /* Giảm size chữ mô tả trên mobile */
-        margin-bottom: 25px;
-        line-height: 1.5;
-        padding: 0 10px;
-    }
-}
         /* ----------------------------------------------------------------
         5. PRODUCT CATALOG (EXTENDED)
         ----------------------------------------------------------------
