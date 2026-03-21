@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán | Matcha Heaven.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2a4425;
+            --bg: #fcfdfa;
+            --accent: #bc4749;
+            --gray: #f9f9f9;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        body { background: var(--bg); padding: 50px 10%; color: #333; line-height: 1.6; }
+
+        .back-link { 
+            text-decoration: none; 
+            color: var(--primary); 
+            font-weight: 600; 
+            display: inline-block; 
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+        .back-link:hover { transform: translateX(-5px); }
+
+        .checkout-container {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+        }
+
+        h2 { font-family: 'Playfair Display', serif; margin-bottom: 25px; color: var(--primary); }
+
+        /* Form styling */
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-size: 0.9rem; font-weight: 600; color: #555; }
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+            transition: 0.3s;
+            font-size: 1rem;
+        }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(42, 68, 37, 0.1); }
+        
+        /* Hiệu ứng báo lỗi khi bỏ trống hoặc sai định dạng */
+        input:invalid:focus { border-color: var(--accent); }
+
+        /* Cart summary items */
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .cart-item img { width: 65px; height: 65px; object-fit: cover; border-radius: 10px; }
+        .item-info { flex: 1; }
+        .item-name { font-weight: 600; font-size: 0.95rem; }
+        .item-qty { font-size: 0.8rem; color: #777; }
+        .item-price { font-weight: 700; color: var(--primary); }
+
+        .summary-box {
+            background: var(--gray);
+            padding: 30px;
+            border-radius: 15px;
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px dashed #ccc;
+            color: var(--primary);
+        }
+
+        .btn-order {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 35px;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-top: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn-order:hover { background: #1b2e18; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        
+        .empty-cart { text-align: center; padding: 100px 0; display: none; }
+
+        @media (max-width: 992px) {
+            .checkout-container { grid-template-columns: 1fr; }
+            body { padding: 30px 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-link">← Tiếp tục mua sắm</a>
+    
+    <div id="checkout-section" class="checkout-container">
+        <form id="checkout-form" onsubmit="handleOrder(event)">
+            <div class="checkout-form-content">
+                <h2>Thông Tin Giao Hàng</h2>
+                
+                <div class="form-group">
+                    <label for="fullname">Họ và tên *</label>
+                    <input type="text" id="fullname" placeholder="Nhập họ tên của bạn" required minlength="2">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Số điện thoại *</label>
+                    <input type="tel" id="phone" placeholder="Ví dụ: 0901234567" 
+                           pattern="[0-9]{10,11}" title="Vui lòng nhập từ 10 đến 11 chữ số" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Địa chỉ nhận hàng *</label>
+                    <input type="text" id="address" placeholder="Số nhà, tên đường, Phường/Xã..." required>
+                </div>
+
+                <div class="form-group">
+                    <label>Ghi chú (tùy chọn)</label>
+                    <input type="text" id="note" placeholder="Ví dụ: Giao giờ hành chính, gọi trước khi đến...">
+                </div>
+            </div>
+        </form>
+
+        <div class="summary-box">
+            <h2 style="font-size: 1.5rem;">Đơn Hàng</h2>
+            <div id="cart-items-list">
+                </div>
+
+            <div class="total-row">
+                <span>Tổng tiền:</span>
+                <span id="total-price">0đ</span>
+            </div>
+
+            <button type="submit" form="checkout-form" class="btn-order">Xác Nhận Đặt Hàng</button>
+        </div>
+    </div>
+
+    <div id="empty-msg" class="empty-cart">
+        <h2 style="font-size: 2.5rem; margin-bottom: 15px;">Giỏ hàng trống! 🍃</h2>
+        <p style="color: #666; margin-bottom: 30px;">Có vẻ như bạn chưa chọn được món Matcha nào rồi.</p>
+        <a href="index.html" class="btn-order" style="text-decoration: none; display: inline-block; width: auto; padding: 15px 40px;">Quay Lại Cửa Hàng</a>
+    </div>
+
+    <script>
+        // 1. Lấy dữ liệu từ LocalStorage (Sử dụng đúng key matcha_master_cart)
+        let cart = JSON.parse(localStorage.getItem('matcha_master_cart')) || [];
+
+        function renderCheckout() {
+            const listContainer = document.getElementById('cart-items-list');
+            const checkoutSection = document.getElementById('checkout-section');
+            const emptyMsg = document.getElementById('empty-msg');
+            const totalPriceEl = document.getElementById('total-price');
+
+            // Kiểm tra giỏ hàng
+            if (!cart || cart.length === 0) {
+                checkoutSection.style.display = 'none';
+                emptyMsg.style.display = 'block';
+                return;
+            }
+
+            let total = 0;
+            listContainer.innerHTML = '';
+
+            cart.forEach((item) => {
+                total += item.price * item.quantity;
+                listContainer.innerHTML += `
+                    <div class="cart-item">
+                        <img src="${item.img}" alt="${item.name}">
+                        <div class="item-info">
+                            <div class="item-name">${item.name}</div>
+                            <div class="item-qty">Số lượng: ${item.quantity}</div>
+                        </div>
+                        <div class="item-price">${(item.price * item.quantity).toLocaleString()}đ</div>
+                    </div>
+                `;
+            });
+
+            totalPriceEl.innerText = total.toLocaleString() + 'đ';
+        }
+
+        // 2. Xử lý đặt hàng
+        function handleOrder(event) {
+            event.preventDefault(); // Ngăn load lại trang
+
+            const name = document.getElementById('fullname').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const address = document.getElementById('address').value.trim();
+
+            // Kiểm tra bảo mật cơ bản (Phòng hờ HTML bypass)
+            if (name.length < 2 || phone.length < 10) {
+                alert("Thông tin không hợp lệ, vui lòng kiểm tra lại số điện thoại!");
+                return;
+            }
+
+            // Hiển thị thông báo thành công
+            alert(`🍃 Cảm ơn ${name}!\nĐơn hàng đã được ghi nhận. Matcha Heaven sẽ sớm liên hệ qua số ${phone} để giao hàng.`);
+            
+            // Xóa sạch giỏ hàng sau khi hoàn tất
+            localStorage.removeItem('matcha_master_cart');
+            
+            // Quay về trang chủ
+            window.location.href = "index.html";
+        }
+
+        // Chạy khi web tải xong
+        window.onload = renderCheckout;
+    </script>
+</body>
+</html>

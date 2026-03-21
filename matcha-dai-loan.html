@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Matcha Đài Loan | Matcha Heaven.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-teal: #2d6a4f;
+            --accent-yellow: #ff9f1c;
+            --bg: #f8f9fa;
+        }
+        * { margin:0; padding:0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        body { background: var(--bg); }
+        
+        /* Navigation */
+        nav { 
+            background: #fff; padding: 15px 10%; 
+            display: flex; justify-content: space-between; align-items: center; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .logo { font-weight: bold; color: var(--primary-teal); text-decoration: none; font-size: 1.5rem; }
+        
+        .nav-right { display: flex; align-items: center; gap: 20px; }
+        
+        .btn-checkout-nav {
+            background: var(--primary-teal);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-checkout-nav:hover { background: #1b4332; }
+
+        /* Hero */
+        .tw-hero {
+            height: 40vh; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_707/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/ow0pdi7fyweisynakdhm/One-DayTourofXijiangQianhuMiaoVillage.jpg') center/cover;
+            display: flex; align-items: center; justify-content: center; color: white; text-align: center;
+        }
+
+        .container { padding: 50px 10%; }
+        .product-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        
+        /* Item Card */
+        .item { background: white; padding: 20px; border-radius: 10px; text-align: center; transition: 0.3s; border: 1px solid #eee; }
+        .item:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .item img { width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; }
+        
+        .add-btn { 
+            background: var(--accent-yellow); color: white; border: none; 
+            padding: 10px 20px; border-radius: 5px; cursor: pointer; 
+            font-weight: bold; width: 100%; transition: 0.3s;
+        }
+        .add-btn:hover { background: #e68a00; }
+        
+        #cart-count { background: #e74c3c; color: white; border-radius: 50%; padding: 2px 7px; font-size: 12px; font-weight: bold; }
+        
+        /* Toast */
+        #toast { 
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: rgba(0,0,0,0.8); color: white; padding: 12px 30px; 
+            border-radius: 30px; display: none; z-index: 2000;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">Matcha Heaven.</a>
+        <div class="nav-right">
+            <a href="index.html" style="text-decoration:none; color:#333; font-size: 0.9rem;">Trang chủ</a>
+            <div style="font-size: 0.9rem;">🛒 <span id="cart-count">0</span></div>
+            <a href="checkout.html" class="btn-checkout-nav">THANH TOÁN</a>
+        </div>
+    </nav>
+
+    <header class="tw-hero">
+        <h1 style="font-size: 3rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.5);">Matcha Đài Loan</h1>
+    </header>
+
+    <div class="container">
+        <div class="product-list">
+            <div class="item">
+                <img src="https://tse2.mm.bing.net/th/id/OIP.gQ8tHVYYkg_J2eUcGVP-PAHaGn?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Kem muối">
+                <h3>Matcha Kem Muối</h3>
+                <p style="margin: 10px 0; font-weight:bold; color: var(--primary-teal);">65.000đ</p>
+                <button class="add-btn" onclick="addTW(301, 'Matcha Kem Muối', 65000, 'https://tse2.mm.bing.net/th/id/OIP.gQ8tHVYYkg_J2eUcGVP-PAHaGn?rs=1&pid=ImgDetMain&o=7&rm=3')">THÊM VÀO GIỎ</button>
+            </div>
+            
+            <div class="item">
+                <img src="https://www.lottemart.vn/media/catalog/product/cache/0x0/8/9/8934588763557-1.jpg.webp" alt="Oolong">
+                <h3>Trà Xanh Oolong</h3>
+                <p style="margin: 10px 0; font-weight:bold; color: var(--primary-teal);">55.000đ</p>
+                <button class="add-btn" onclick="addTW(302, 'Trà Xanh Oolong', 55000, 'https://www.lottemart.vn/media/catalog/product/cache/0x0/8/9/8934588763557-1.jpg.webp')">THÊM VÀO GIỎ</button>
+            </div>
+
+            <div class="item">
+                <img src="https://i.pinimg.com/originals/07/e6/61/07e661d9c5e58d43b513adf5bacec485.jpg" alt="Matcha Milk">
+                <h3>Matcha Trân Châu</h3>
+                <p style="margin: 10px 0; font-weight:bold; color: var(--primary-teal);">60.000đ</p>
+                <button class="add-btn" onclick="addTW(303, 'Matcha Trân Châu', 60000, 'https://i.pinimg.com/originals/07/e6/61/07e661d9c5e58d43b513adf5bacec485.jpg')">THÊM VÀO GIỎ</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast"></div>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('matcha_master_cart')) || [];
+        
+        function addTW(id, name, price, img) {
+            let item = cart.find(i => i.id === id);
+            
+            if(item) {
+                item.quantity++;
+            } else {
+                cart.push({id, name, price, img, quantity: 1});
+            }
+            
+            localStorage.setItem('matcha_master_cart', JSON.stringify(cart));
+            updateCount();
+            
+            let t = document.getElementById('toast');
+            t.innerText = "🍃 Đã thêm " + name + " vào giỏ!";
+            t.style.display = "block";
+            setTimeout(() => t.style.display = "none", 2000);
+        }
+
+        function updateCount() {
+            const count = cart.reduce((a, b) => a + b.quantity, 0);
+            document.getElementById('cart-count').innerText = count;
+        }
+
+        updateCount();
+    </script>
+</body>
+</html>
