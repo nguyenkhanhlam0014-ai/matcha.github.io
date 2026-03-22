@@ -65,6 +65,24 @@
             background: rgba(0,0,0,0.8); color: white; padding: 12px 30px; 
             border-radius: 30px; display: none; z-index: 2000;
         }
+        @media (max-width: 600px) {
+    .container {
+        padding: 20px 5%; /* Giảm lề hai bên */
+    }
+
+    .grid, .product-list, .catalog-grid {
+        grid-template-columns: 1fr; /* Chỉ hiển thị 1 cột sản phẩm trên 1 hàng */
+        gap: 20px;
+    }
+
+    .hero, .tw-hero {
+        height: 30vh; /* Thu nhỏ banner đầu trang */
+    }
+
+    nav {
+        padding: 1rem 5%;
+    }
+}
     </style>
 </head>
 <body>

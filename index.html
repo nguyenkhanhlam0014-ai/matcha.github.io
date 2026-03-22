@@ -679,7 +679,43 @@
             .origin-media img { box-shadow: none; height: 350px; }
             .section-title { font-size: 2.2rem; }
         }
+        /* Media Queries cho Mobile & Tablet */
+@media (max-width: 768px) {
+    /* Menu điều hướng */
+    .nav-links {
+        display: none; /* Ẩn menu chữ trên mobile để dùng menu icon (nếu có) hoặc rút gọn */
+    }
+    
+    .nav-container {
+        padding: 0 15px;
+    }
 
+    /* Hero Section */
+    .hero-content h1 {
+        font-size: 2.5rem; /* Giảm cỡ chữ tiêu đề chính */
+    }
+
+    /* Cấu trúc Nguồn gốc (Origin Content) */
+    .origin-content-box.active {
+        flex-direction: column; /* Chuyển từ hàng ngang sang hàng dọc */
+        gap: 30px;
+    }
+
+    .origin-media, .origin-text-side {
+        min-width: 100%; /* Chiếm hết chiều ngang màn hình */
+    }
+
+    .origin-media img {
+        height: 300px; /* Giảm chiều cao ảnh cho cân đối */
+        box-shadow: 15px 15px 0 var(--matcha-cream); /* Thu nhỏ hiệu ứng bóng */
+    }
+
+    /* Giỏ hàng (Cart Drawer) */
+    .cart-drawer {
+        width: 100% !important; /* Chiếm toàn màn hình trên điện thoại */
+        right: -100%;
+    }
+}
     </style>
 </head>
 <body>

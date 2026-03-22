@@ -111,6 +111,22 @@
             .checkout-container { grid-template-columns: 1fr; }
             body { padding: 30px 5%; }
         }
+        @media (max-width: 992px) {
+    .checkout-container {
+        grid-template-columns: 1fr; /* Chuyển về 1 cột */
+        padding: 20px;
+    }
+
+    .summary-box {
+        position: relative; /* Bỏ dính (sticky) để cuộn tự nhiên */
+        top: 0;
+        margin-top: 30px;
+    }
+
+    body {
+        padding: 20px 5%; /* Giảm padding của body */
+    }
+}
     </style>
 </head>
 <body>
